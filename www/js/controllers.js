@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
   
-.controller('homeCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('myProfileCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
@@ -8,11 +8,10 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('cartCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('pictureCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-    debugger;
     $scope.takePicture = function() {
         var options = { 
             quality : 75, 
@@ -44,6 +43,7 @@ function ($scope, $stateParams) {
     function errorCallback(error){
         debugger;
     }
+
 }])
    
 .controller('chatCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -55,13 +55,11 @@ function ($scope, $stateParams, $firebaseArray, $ionicUser) {
     };
 
     var ref = firebase.database().ref().child('messages');
-    
     /*
     ref.on('child_added', function(){
         
     });
     */
-
     $scope.messages = $firebaseArray(ref);
     
     $scope.addMessage = function(){
@@ -111,7 +109,7 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
     
     if($ionicAuth.isAuthenticated()){
         $ionicUser.load().then(function(){
-           $state.go('menu.home'); 
+           $state.go('menu.myProfile'); 
         });
     }
     
@@ -120,7 +118,7 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
         $scope.hasError = false;
         
         $ionicAuth.login('basic', $scope.data).then(function(){
-            $state.go('menu.home');
+            $state.go('menu.myProfile');
         }, function(err){
             debugger;
             $scope.hasError = true;
@@ -150,7 +148,7 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
         
         $ionicAuth.signup($scope.data).then(function(){
             $ionicAuth.login('basic', $scope.data).then(function(){
-                $state.go('menu.home');
+                $state.go('menu.myProfile');
             });
             
         }, function(err){
@@ -168,5 +166,13 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
         });
         
     }
+}])
+   
+.controller('contactsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
 }])
  
