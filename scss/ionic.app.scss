@@ -1,0 +1,96 @@
+$SIDEMENU_TOP: #11C1F3;
+$SIDEMENU_BOTTOM: #67D1EF;
+$SIDEMENU_TRANSPARENCY: rgba(255,255,255, 0.4);
+$ionicons-font-path: "../lib/ionic/fonts" !default;
+@import "../www/lib/ionic/scss";
+.side-menu-gradient {
+	background: -webkit-linear-gradient(left top, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+	background: -o-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+	background: -moz-linear-gradient(bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+	background: linear-gradient(to bottom right, $SIDEMENU_TOP, $SIDEMENU_BOTTOM);
+	.side-menu-item {
+		background: none;
+		color: #fff;
+		border: 0px;
+		font-weight: 300;
+		.item-content {
+			background: none;
+			&.activated {
+				background: $SIDEMENU_TRANSPARENCY;
+			}
+			
+		}
+		&.active-page-highlight {
+			.item-content {
+				background: $SIDEMENU_TRANSPARENCY;
+			}
+			
+		}
+	}
+}
+.center-form {
+	width: 290px;
+	position: absolute;
+	/*top: 50%*/;
+	left: 50%;
+	transform: translate(-50%, -5%);
+	label {
+		background-color: rgba(255,255,255,0.7);
+		border-color: rgba(255,255,255,0);
+		&.top-input {
+			border-radius: 4px 4px 0px 0px;
+		}
+		
+		&.bottom-input {
+			border-radius: 0px 0px 4px 4px;
+		}
+		
+	}
+	.button-positive {
+		opacity: 0.9;
+	}
+	
+	.login-button {
+		background-color: rgba(255,255,255,0.7);
+		border-color: rgba(255,255,255,0);
+		color: #11C1F3;
+		font-weight: 700;
+	}
+	
+}
+.fake-error-box {
+	padding: 10px;
+	min-height: 70px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+.error-box {
+	padding: 10px;
+	min-height: 70px;
+	border: 1px solid darken($assertive, 10%);
+	background-color: $assertive;
+	border-radius: 4px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	p {
+		color: #fff !important;
+	}
+	
+}
+.top-container {
+	height: calc(100% - 96px);
+	overflow: scroll;
+}
+
+.bottom-form {
+	position: absolute;
+	bottom: 0px;
+	display: block;
+	width: 100%;
+	background-color: white;
+	button {
+		margin: 0px !important;
+	}
+	
+}
