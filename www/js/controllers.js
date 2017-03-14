@@ -46,20 +46,33 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('chatCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('chatCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', 'awlert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $firebaseArray, $ionicUser) {
+function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert) {
+    $ionicLoading.show({ template: 'Chargement...' });
+    
     $scope.data = {
         message : ''
     };
+    $scope.glued = true;
 
+    var initialDataLoaded = false;
     var ref = firebase.database().ref().child('messages');
-    /*
-    ref.on('child_added', function(){
-        
+    
+    ref.on('child_added', function(data){
+        if(initialDataLoaded){
+            
+    $scope.glued = true;
+            awlert.neutral('Awesome neutral message for your user', 1000);
+        }
     });
-    */
+    
+    ref.once('value', function(snapshot) {
+      initialDataLoaded = true;
+      $ionicLoading.hide();
+    });
+    
     $scope.messages = $firebaseArray(ref);
     
     $scope.addMessage = function(){
@@ -69,7 +82,6 @@ function ($scope, $stateParams, $firebaseArray, $ionicUser) {
           name: $ionicUser.details.name
         });
         $scope.data.message = '';
-        
     }
 }])
    
@@ -109,6 +121,8 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
     
     if($ionicAuth.isAuthenticated()){
         $ionicUser.load().then(function(){
+            
+            console.log($ionicUser);
            $state.go('menu.myProfile'); 
         });
     }
@@ -120,7 +134,7 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
         $ionicAuth.login('basic', $scope.data).then(function(){
             $state.go('menu.myProfile');
         }, function(err){
-            debugger;
+            
             $scope.hasError = true;
             $scope.error = 'Error logging in';
         });
@@ -168,7 +182,84 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
     }
 }])
    
-.controller('contactsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('contactDetailsCtrl', ['$scope', '$stateParams', '$firebaseArray', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $firebaseArray) {
+    
+    var contactId = $stateParams.id;
+    
+    init();
+    
+    
+    
+    function init(){
+        debugger;
+        var contactRef = firebase.database().ref('contacts/' + contactId);
+        
+        //$scope.contacts = $firebaseArray(contactRef);
+        
+        
+        
+        
+        firebase.database().ref('/contacts/' + contactId).once('value').then(function(snapshot) {
+          $scope.currentContact = snapshot.val();
+          // ...
+        })
+    }
+
+}])
+   
+.controller('todoDetailsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('todosCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', 'awlert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert) {
+    var ref = firebase.database().ref().child('todoList');
+    
+    $scope.todoList = $firebaseArray(ref);
+    
+    $scope.deleteTodo = function(todo){
+        alert('delete');
+    }
+    
+    $scope.completeTodo = function(todo){
+        alert('complete');
+    }
+}])
+   
+.controller('contactsCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', 'awlert', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert, $state) {
+    var ref = firebase.database().ref().child('contacts');
+    
+    $scope.contacts = $firebaseArray(ref);
+    
+    
+    $scope.viewContactDetails = function(contact){
+        
+        $state.go('menu.contactDetails', { id : contact.$id});
+        
+    }
+}])
+   
+.controller('pageCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('testCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {

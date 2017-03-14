@@ -64,6 +64,39 @@ angular.module('app.routes', [])
     controller: 'signupCtrl'
   })
 
+  .state('menu.contactDetails', {
+    url: '/contactDetails',
+	params: {
+		id: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/contactDetails.html',
+        controller: 'contactDetailsCtrl'
+      }
+    }
+  })
+
+  .state('menu.todoDetails', {
+    url: '/page13',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/todoDetails.html',
+        controller: 'todoDetailsCtrl'
+      }
+    }
+  })
+
+  .state('menu.todos', {
+    url: '/todos',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/todos.html',
+        controller: 'todosCtrl'
+      }
+    }
+  })
+
   .state('menu.contacts', {
     url: '/contacts',
     views: {
@@ -72,6 +105,18 @@ angular.module('app.routes', [])
         controller: 'contactsCtrl'
       }
     }
+  })
+
+  .state('page', {
+    url: '/page16',
+    templateUrl: 'templates/page.html',
+    controller: 'pageCtrl'
+  })
+
+  .state('test', {
+    url: '/page17',
+    templateUrl: 'templates/test.html',
+    controller: 'testCtrl'
   })
 
 $urlRouterProvider.otherwise('/login')
