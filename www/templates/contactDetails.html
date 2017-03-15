@@ -1,12 +1,27 @@
 <ion-view title="Contact Details" id="page10">
   <ion-content padding="true" class="has-header">
-    <h3 id="contactDetails-heading3" style="color:#000000;">{{currentContact.name}}</h3>
-    <div id="contactDetails-markdown8" class="show-list-numbers-and-dots">
-      <p style="color:#000000;">Some details...</p>
+    <div>
+      <img src="img/J1Jlay6QbmpY11f70mhK_videoassistenza.jpg" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+    </div>
+    <div id="contactDetails-container3" class="contact-details-container">
+      <h3 id="contactDetails-heading3" style="color:#000000;">{{currentContact.val().name}}</h3>
+      <h4 id="contactDetails-heading4" style="color:#000000;">{{currentContact.val().type}}</h4>
+      <div id="contactDetails-markdown12" class="show-list-numbers-and-dots">
+        <p style="color:#000000;">{{currentContact.val().phoneNumber}}</p>
+      </div>
+      <div id="contactDetails-markdown13" class="show-list-numbers-and-dots">
+        <p style="color:#000000;">{{currentContact.val().email}}</p>
+      </div>
+      <div id="contactDetails-markdown14" class="show-list-numbers-and-dots">
+        <p style="color:#000000;">Location : {{currentContact.val().location}}</p>
+      </div>
     </div>
     <div id="contactDetails-button-bar1" class="button-bar">
-      <button id="contactDetails-button11" class="button button-positive  button-block">Send Message</button>
+      <button id="contactDetails-button11" ng-click="sendMessageToContact()" class="button button-positive  button-block">Send Message</button>
       <button id="contactDetails-button12" class="button button-positive  button-block">Call</button>
+    </div>
+    <div id="contactDetails-markdown8" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">{{currentContact.val().description}}</p>
     </div>
   </ion-content>
 </ion-view>

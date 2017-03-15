@@ -1,10 +1,12 @@
 <ion-view title="Todos">
   <ion-content padding="true" class="has-header">
     <ion-list>
-      <ion-item ng-repeat="todo in todoList" class="item-icon-left" ui-sref="menu.todoDetails">
-        <i class="icon ion-android-checkbox-outline"></i>{{todo.name}}
-        <ion-option-button class="button-assertive" ng-click="deleteTodo(todo)">Delete</ion-option-button>
-        <ion-option-button class="button-balanced" ng-click="completeTodo(todo)">Done !</ion-option-button>
+      <ion-item ng-repeat="todo in todoList | orderBy: '-status'" class="item-icon-left" ng-click="viewTodoDetails(todo.val())">
+        <i class="icon ion-android-checkbox-outline" ng-if="todo.val().status=='Done'" style="color: gray"></i>
+        <i class="icon ion-android-checkbox-outline-blank" ng-if="todo.val().status!='Done'"></i>{{todo.val().name}}
+        <ion-option-button class="button-assertive" on-tap="deleteTodo(todo)">Delete</ion-option-button>
+        <ion-option-button class="button-balanced" on-tap="completeTodo(todo)" ng-if="todo.val().status!='Done'">Done</ion-option-button>
+        <ion-option-button class="button-balanced" on-tap="pendingTodo(todo)" ng-if="todo.val().status=='Done'">Pending</ion-option-button>
       </ion-item>
     </ion-list>
   </ion-content>

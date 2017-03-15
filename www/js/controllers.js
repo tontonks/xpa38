@@ -63,7 +63,7 @@ function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awler
     ref.on('child_added', function(data){
         if(initialDataLoaded){
             
-    $scope.glued = true;
+            $scope.glued = true;
             awlert.neutral('Awesome neutral message for your user', 1000);
         }
     });
@@ -182,10 +182,11 @@ function ($scope, $state, $ionicAuth, $ionicUser) {
     }
 }])
    
-.controller('contactDetailsCtrl', ['$scope', '$stateParams', '$firebaseArray', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('contactDetailsCtrl', ['$scope', '$state', '$stateParams', '$firebaseArray', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $firebaseArray) {
+function ($scope, $state,$stateParams, $firebaseArray, $ionicLoading ){
+    $ionicLoading.show({ template: 'Chargement...' });
     
     var contactId = $stateParams.id;
     
@@ -194,7 +195,6 @@ function ($scope, $stateParams, $firebaseArray) {
     
     
     function init(){
-        debugger;
         var contactRef = firebase.database().ref('contacts/' + contactId);
         
         //$scope.contacts = $firebaseArray(contactRef);
@@ -203,9 +203,17 @@ function ($scope, $stateParams, $firebaseArray) {
         
         
         firebase.database().ref('/contacts/' + contactId).once('value').then(function(snapshot) {
-          $scope.currentContact = snapshot.val();
+          $scope.currentContact = snapshot;
+          
+          $ionicLoading.hide();
           // ...
         })
+    }
+    
+    
+    $scope.sendMessageToContact = function(){
+        
+        $state.go('menu.questions' , {contactId : $scope.currentContact.key})
     }
 
 }])
@@ -215,38 +223,177 @@ function ($scope, $stateParams, $firebaseArray) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+var todoId = $stateParams.id;
+
+    init();
+
+    function init() {
+        debugger;
+        var todoRef = firebase.database().ref('todoList/' + todoId);
+
+        firebase.database().ref('/todoList/' + todoId).once('value').then(function (snapshot) {
+            $scope.currentTodo = snapshot.val();
+            // ...
+        })
+    }
+
+    $scope.updateTodo = function (todo) {
+        firebase.database().ref('todo/' + todo.id).set({
+            username: name,
+            email: email,
+            profile_picture: imageUrl
+        });
+
+        firebase.database().ref('todo/' + todo.id).update();
+    }
 
 }])
    
-.controller('todosCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', 'awlert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('todosCtrl', ['$scope', '$state', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', '$ionicListDelegate', 'awlert', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert) {
-    var ref = firebase.database().ref().child('todoList');
-    
-    $scope.todoList = $firebaseArray(ref);
-    
-    $scope.deleteTodo = function(todo){
-        alert('delete');
+function ($scope, $state, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, $ionicListDelegate, awlert) {
+    $ionicLoading.show({ template: 'Chargement...' });
+    var ref = firebase.database().ref('users/' + $ionicUser.id + '/todoList');
+
+    $scope.todoList = [];
+
+    ref.on('value', function (snapshot) {
+        snapshot.forEach(function (snapShotItem) {
+
+            firebase.database().ref('todoList/' + snapShotItem.key).on('value', function (childSnapShot) {
+                $scope.todoList.push(childSnapShot);
+
+                $ionicLoading.hide();
+            });
+        });
+    });
+
+
+    $scope.viewTodoDetails = function (todo) {
+        $state.go('menu.todoDetails', { id: todo.key });
     }
     
-    $scope.completeTodo = function(todo){
-        alert('complete');
+    $scope.deleteTodo = function (todo) {
+        var todoVal = todo.val();
+
+        var todoName = todoVal.name;
+        ref.child(todoVal.key).remove().then(_ => console.log('The todo ' + todoName + ' was successfully deleted!'));
     }
+
+    $scope.pendingTodo = function (todo) {
+        var todoVal = todo.val();
+
+        if (todoVal.status !== "Pending") {
+            var todoUpdate = {
+                status: "Pending",
+                contacts: todoVal.contacts,
+                description: todoVal.description,
+                name: todoVal.name,
+                tags: todoVal.tags
+            };
+
+            ref.child(todoVal.key).update(todoUpdate).then(_ => console.log(todoVal.name + 'has been set as pending'));
+
+            $ionicListDelegate.closeOptionButtons();
+        }
+    }
+    
+    $scope.completeTodo = function (todo) {
+        var todoVal = todo.val();
+
+        if (todoVal.status !== "Done") {
+            var todoUpdate = {
+                status: "Done",
+                contacts: todoVal.contacts,
+                description: todoVal.description,
+                name: todoVal.name,
+                tags: todoVal.tags
+            };
+
+            ref.child(todoVal.key).update(todoUpdate).then(_ => console.log(todoVal.name + 'has been set as done'));
+
+            $ionicListDelegate.closeOptionButtons();
+        } else {
+            console.log('The todo status is already done');
+        }
+    }
+
+    $scope.addTodo = function (newTodo) {
+        $scope.todoList.$add({
+            name: newTodo.name,
+            description: newTodo.title,
+            status: "New"
+        });
+    }
+
 }])
    
 .controller('contactsCtrl', ['$scope', '$stateParams', '$firebaseArray', '$ionicUser', '$ionicLoading', 'awlert', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert, $state) {
-    var ref = firebase.database().ref().child('contacts');
+    $ionicLoading.show({ template: 'Chargement...' });
     
-    $scope.contacts = $firebaseArray(ref);
+    //var ref = firebase.database().ref().child('contacts');
+    
+    $scope.contacts = []; //$firebaseArray(ref);
+    
+    
+    //ref.once('value', function(snapshot) {
+    //  $ionicLoading.hide();
+    //});
+    /*debugger;
+    var ref = firebase.database().ref('users/' + $ionicUser.id + '/contacts');
+    ref.on('value', function(snapshot) {
+        debugger;
+      //updateStarCount(postElement, snapshot.val());
+    });
+    
+    
+    return;
+    */
+    
+    
+    firebase.database().ref('users/' + $ionicUser.id + '/contacts').on('value', function(snapshot){
+        
+        
+        
+        snapshot.forEach(function(snapShotItem) {
+          
+          firebase.database().ref('contacts/' + snapShotItem.key).on('value', function(childSnapShot){
+              $scope.contacts.push(childSnapShot);
+              
+              $ionicLoading.hide();
+          });
+        });
+        
+    });
+    
+    
+    
+      /*.then(function(snapshot) {
+         debugger;
+        
+        
+        
+        snapshot.val()[$ionicUser.id].contacts.forEach(function(childSnapshot) {
+            //debugger;
+          // key will be "ada" the first time and "alan" the second time
+          var key = childSnapshot.key;
+          // childData will be the actual contents of the child
+          var childData = childSnapshot.val();
+          
+          //child.id = key;
+          $scope.contacts.push(childData);
+          console.log(childData);
+      });
+    });*/
     
     
     $scope.viewContactDetails = function(contact){
-        
-        $state.go('menu.contactDetails', { id : contact.$id});
+       
+        $state.go('menu.contactDetails', { id : contact.key});
         
     }
 }])
@@ -265,5 +412,71 @@ function ($scope, $stateParams) {
 function ($scope, $stateParams) {
 
 
+}])
+   
+.controller('questionsCtrl', ['$scope', '$stateParams', '$state', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams,$state, $ionicLoading) {
+    init();
+    $scope.questions = [];
+ 
+    function init(){
+        
+        var contactRef = firebase.database().ref('questions/').orderByChild('contact').equalTo($stateParams.contactId);
+        
+        contactRef.on('value', function(snapshot){
+            //debugger;
+            snapshot.forEach(function(snapShotItem) {
+          
+             // debugger;
+              //firebase.database().ref('ques/' + snapShotItem.key).on('value', function(childSnapShot){
+                  $scope.questions.push(snapShotItem);
+                  
+                  $ionicLoading.hide();
+              //});
+              
+              
+             /* groupRef.child(childSnapshot.key).once(function(){
+                  
+                  
+              });*/
+            });
+            
+        });
+        
+    }
+    
+    $scope.viewMessages = function(questionId){
+        $state.go('menu.messages', {questionId: questionId});
+    }
+    
+}])
+   
+.controller('messagesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+    $scope.messages = [];
+
+    init();
+    
+    function init(){
+        
+        firebase.database().ref('questions/' + $stateParams.questionId + '/messages').on('value', function(snapshot){
+        
+        
+        
+        snapshot.forEach(function(snapShotItem) {
+          
+          firebase.database().ref('messages/' + snapShotItem.key).on('value', function(childSnapShot){
+              $scope.messages.push(childSnapShot);
+              
+              //$ionicLoading.hide();
+          });
+        });
+        
+    });
+    }
 }])
  

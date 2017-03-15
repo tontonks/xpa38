@@ -1,0 +1,9 @@
+<ion-view title="Messages" id="page9">
+  <ion-content padding="true" class="has-header">
+    <ion-list id="messages-list7">
+      <ion-item id="messages-list-item13" ng-repeat="message in messages">{{message.val().message}}
+        <span class="item-note">{{message.val().sender}}</span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

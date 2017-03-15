@@ -119,6 +119,32 @@ angular.module('app.routes', [])
     controller: 'testCtrl'
   })
 
+  .state('menu.questions', {
+    url: '/questions',
+	params: {
+		contactId: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/questions.html',
+        controller: 'questionsCtrl'
+      }
+    }
+  })
+
+  .state('menu.messages', {
+    url: '/page9',
+	params: {
+		questionId: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/messages.html',
+        controller: 'messagesCtrl'
+      }
+    }
+  })
+
 $urlRouterProvider.otherwise('/login')
 
   

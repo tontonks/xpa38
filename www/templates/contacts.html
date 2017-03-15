@@ -2,7 +2,7 @@
   <ion-content padding="true" class="has-header">
     <ion-list>
       <ion-item ng-repeat="contact in contacts" class="item-icon-left" ng-click="viewContactDetails(contact)">
-        <i class="icon ion-android-checkbox-outline"></i>{{contact.name}}
+        <i class="icon ion-android-checkbox-outline"></i>{{contact.val().name}}
         <ion-option-button class="button-assertive">Delete</ion-option-button>
         <ion-option-button class="button-balanced">Done !</ion-option-button>
       </ion-item>
