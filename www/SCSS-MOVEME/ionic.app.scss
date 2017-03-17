@@ -79,7 +79,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	
 }
 .top-container {
-	height: calc(100% - 96px);
+	height: calc(100% - 140px);
+	border-bottom: solid 0px black;
 	overflow: scroll;
 }
 
@@ -94,17 +95,110 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	}
 	
 }
+/* questions */
+
+.question-page {
+	.item-content {
+		/*color: #FFF;
+		*/}
+	/*color: #FFF;
+	*/
+	    /*.icon {
+		color: #FFF !important;
+	}
+	
+	i {
+		color: #FFF;
+	}
+	
+	*/}
+.question-opened {
+	/*background-color: #FF553A;
+	*/
+	    i {
+		color: #FF553A;
+	}
+	
+}
+.question-closed {
+	/*background-color: #09F751;
+	*/
+	    i {
+		color: #09F751;
+	}
+	
+}
+/*
+.item-complex {
+	&.item-content {
+		background-color: yellow !important;
+	}
+	
+}
+*/
+.item .item-content {
+	background-color: transparent !important;
+}
+
 /* CONTACTS */
 
+.contact-container {
+	.contact-type {
+		font-size: 13px;
+	}
+	
+	.contact.name {
+		font-weight: 700;
+		font-size: 15px;
+	}
+	
+}
 .contact-details-container {
 	h3 {
 		text-align: center;
 	}
 	
 }
+/* MESSAGE */
+.message-detail {
+	.message-sender {
+		text-align: left;
+	}
+	
+	.message-target {
+		text-align: right;
+	}
+	
+	.message-text-container {
+		border: solid 1px;
+		border-color: gray;
+		margin-top: 15px !important;
+		border-radius: 8px;
+		width: 90%;
+		margin: 0 auto;
+		.message-text {
+			padding: 5px;
+			white-space: normal;
+			word-wrap: break-word;
+		}
+		
+	}
+}
 /* Footer bar*/
 .bar-assertive {
 	height: 60px;
+}
+
+/*general */
+.general-right-item {
+	position: absolute;
+	right: 20px;
+}
+
+.act-details {
+	font-size: 12px !important;
+	white-space: normal !important;
+	word-wrap: break-word;
 }
 
 /* awlert - start*/

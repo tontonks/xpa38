@@ -1,30 +1,17 @@
-<ion-view title="Todos">
-  <ion-content padding="true" class="has-header">
-    <ion-list>
-      <ion-item ng-repeat="todo in todoList | orderBy: '-status'" class="item-icon-left" ng-click="viewTodoDetails(todo.val())">
-        <i class="icon ion-android-checkbox-outline" ng-if="todo.val().status=='Done'" style="color: gray"></i>
-        <i class="icon ion-android-checkbox-outline-blank" ng-if="todo.val().status!='Done'"></i>{{todo.val().name}}
-        <ion-option-button class="button-assertive" on-tap="deleteTodo(todo)">Delete</ion-option-button>
-        <ion-option-button class="button-balanced" on-tap="completeTodo(todo)" ng-if="todo.val().status!='Done'">Done</ion-option-button>
-        <ion-option-button class="button-balanced" on-tap="pendingTodo(todo)" ng-if="todo.val().status=='Done'">Pending</ion-option-button>
-      </ion-item>
-    </ion-list>
+<ion-view title="Todos" cache-view="false">
+  <ion-content padding="false" scroll="false" class="has-header">
+    <ion-scroll style="height: calc(100% - 57px); overflow: hidden">
+      <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+      <ion-list can-swipe="true">
+        <ion-item ng-repeat="todo in todoList | orderBy: '-status'" class="item-icon-left" ng-click="viewTodoDetails(todo)">
+          <i class="icon ion-android-checkbox-outline" ng-if="todo.val().status=='Done'" style="color: gray"></i>
+          <i class="icon ion-android-checkbox-outline-blank" ng-if="todo.val().status!='Done'"></i>{{todo.val().name}}
+          <ion-option-button class="button-assertive" on-tap="deleteTodo(todo)">Delete</ion-option-button>
+          <ion-option-button class="button-balanced" on-tap="completeTodo(todo)" ng-if="todo.val().status!='Done'">Done</ion-option-button>
+          <ion-option-button class="button-balanced" on-tap="pendingTodo(todo)" ng-if="todo.val().status=='Done'">Pending</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+    <button id="menu-button5" ng-click="addTodo()" class="button button-energized button-block ion-plus-circled">&nbsp;Add Todo</button>
   </ion-content>
-  <ion-footer-bar align-title="left" class="bar-assertive">
-    <!--<div class="buttons">
-        <button class="button">Status : Pending</button>
-      </div>
-      
-      <div class="buttons" ng-click="doSomething()">
-        <button class="button">Contact : HR Admin</button>
-      </div>-->
-    <div class="row">
-      <div class="col col-50 buttons" ng-click="doSomething()">
-        <button class="button icon ion-android-folder-open" style="width:100%"></button>
-      </div>
-      <div class="col col-50 buttons" ng-click="doSomething()">
-        <button class="button icon ion-images" style="width:100%"></button>
-      </div>
-    </div>
-  </ion-footer-bar>
 </ion-view>

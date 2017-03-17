@@ -1,9 +1,39 @@
-<ion-view title="Messages" id="page9">
-  <ion-content padding="true" class="has-header">
-    <ion-list id="messages-list7">
-      <ion-item id="messages-list-item13" ng-repeat="message in messages">{{message.val().message}}
+<ion-view title="Messages" cache-view="false">
+  <ion-content padding="false" scroll="false" class="has-header">
+    <!--<ion-list>
+      <ion-item ng-repeat="message in messages">{{message.val().message}}
         <span class="item-note">{{message.val().sender}}</span>
       </ion-item>
     </ion-list>
+    -->
+    <ion-scroll scroll-glue="" class="top-container">
+      <ion-list>
+        <ion-item ng-repeat="message in messages">
+          <div class="message-detail">
+            <div ng-if="message.val().fromExpat" class="message-sender">{{message.val().sender}}</div>
+            <div ng-if="!message.val().fromExpat" class="message-target">{{message.val().sender}}</div>
+            <div class="message-text-container">
+              <div class="message-text">{{message.val().message}}</div>
+              <div class="message-timestamp">{{message.val().timeStamp}}</div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+    <div>
+      <form class="list bottom-form">
+        <div>
+          <div>Your Message</div>
+          <div style="height:60px">
+            <textarea ng-model="data.message"></textarea>
+          </div>
+        </div>
+        <!--
+      <label class="item item-input">
+        <span class="input-label">Message :</span>
+      </label>-->
+        <button class="button button-energized  button-block" ng-click="sendMessage()">Send</button>
+      </form>
+    </div>
   </ion-content>
 </ion-view>

@@ -10,34 +10,26 @@ angular.module('app.routes', [])
     
   
 
-      .state('menu.myProfile', {
+      .state('menu.general', {
     url: '/myProfile',
     views: {
       'side-menu21': {
-        templateUrl: 'templates/myProfile.html',
-        controller: 'myProfileCtrl'
+        templateUrl: 'templates/general.html',
+        controller: 'generalCtrl'
       }
     }
   })
 
-  .state('menu.picture', {
+  .state('picture', {
     url: '/picture',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/picture.html',
-        controller: 'pictureCtrl'
-      }
-    }
+    templateUrl: 'templates/picture.html',
+    controller: 'pictureCtrl'
   })
 
-  .state('menu.chat', {
+  .state('chat', {
     url: '/chat',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/chat.html',
-        controller: 'chatCtrl'
-      }
-    }
+    templateUrl: 'templates/chat.html',
+    controller: 'chatCtrl'
   })
 
   .state('cloud', {
@@ -54,6 +46,9 @@ angular.module('app.routes', [])
 
   .state('login', {
     url: '/login',
+	params: {
+		id: ""		
+},
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
@@ -77,12 +72,15 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.todoDetails', {
-    url: '/page13',
+  .state('menu.details', {
+    url: '/todoDetails',
+	params: {
+		id: ""		
+},
     views: {
       'side-menu21': {
-        templateUrl: 'templates/todoDetails.html',
-        controller: 'todoDetailsCtrl'
+        templateUrl: 'templates/details.html',
+        controller: 'detailsCtrl'
       }
     }
   })
@@ -107,22 +105,11 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('page', {
-    url: '/page16',
-    templateUrl: 'templates/page.html',
-    controller: 'pageCtrl'
-  })
-
-  .state('test', {
-    url: '/page17',
-    templateUrl: 'templates/test.html',
-    controller: 'testCtrl'
-  })
-
   .state('menu.questions', {
     url: '/questions',
 	params: {
-		contactId: ""		
+		contactId: "",
+		contactName: ""		
 },
     views: {
       'side-menu21': {
@@ -141,6 +128,29 @@ angular.module('app.routes', [])
       'side-menu21': {
         templateUrl: 'templates/messages.html',
         controller: 'messagesCtrl'
+      }
+    }
+  })
+
+  .state('menu.allQuestions', {
+    url: '/page14',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/allQuestions.html',
+        controller: 'allQuestionsCtrl'
+      }
+    }
+  })
+
+  .state('menu.Title', {
+    url: '/todoEdit',
+	params: {
+		id: ""		
+},
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/Title.html',
+        controller: 'TitleCtrl'
       }
     }
   })

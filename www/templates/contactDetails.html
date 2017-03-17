@@ -1,7 +1,16 @@
 <ion-view title="Contact Details" id="page10">
   <ion-content padding="true" class="has-header">
     <div>
-      <img src="img/J1Jlay6QbmpY11f70mhK_videoassistenza.jpg" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;">
+      <img src="img/J1Jlay6QbmpY11f70mhK_videoassistenza.jpg" style="display: block; width: 100%; height: auto; margin-left: auto; margin-right: auto;" ng-if="currentContact.val().name != &quot;Steve Mihy&quot; &amp;&amp; currentContact.val().name != &quot;Fred Tais&quot; &amp;&amp; currentContact.val().name != &quot;Stefanie Demeyer&quot;">
+    </div>
+    <div>
+      <img src="img/ZHPBWn6QVq5qA6UegSM2_image004.jpg" style="display: block; width: 80%; height: auto; margin-left: auto; margin-right: auto;" ng-show="currentContact.val().name == &quot;Steve Mihy&quot;">
+    </div>
+    <div>
+      <img src="img/KmergepKRhGIsdpmb0Xi_fred.jpg" style="display: block; width: 80%; height: auto; margin-left: auto; margin-right: auto;" ng-show="currentContact.val().name == &quot;Fred Tais&quot;">
+    </div>
+    <div>
+      <img src="img/WcGSZrtfRUK5yIQgrCNl_image006.jpg" style="display: block; width: 80%; height: auto; margin-left: auto; margin-right: auto;" ng-if="currentContact.val().name == &quot;Stefanie Demeyer&quot;">
     </div>
     <div id="contactDetails-container3" class="contact-details-container">
       <h3 id="contactDetails-heading3" style="color:#000000;">{{currentContact.val().name}}</h3>
@@ -17,8 +26,10 @@
       </div>
     </div>
     <div id="contactDetails-button-bar1" class="button-bar">
-      <button id="contactDetails-button11" ng-click="sendMessageToContact()" class="button button-positive  button-block">Send Message</button>
-      <button id="contactDetails-button12" class="button button-positive  button-block">Call</button>
+      <button id="contactDetails-button11" ng-click="sendMessageToContact()" class="button button-positive  button-block">Questions</button>
+      <a style="width:50%" href="{{phoneNumber}}">
+        <button class="button button-positive  button-block">Call</button>
+      </a>
     </div>
     <div id="contactDetails-markdown8" class="show-list-numbers-and-dots">
       <p style="color:#000000;">{{currentContact.val().description}}</p>

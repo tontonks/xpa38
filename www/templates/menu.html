@@ -17,16 +17,18 @@
       <h3 id="menu-heading2" style="color:#FFFFFF;font-weight:300;text-align:center;">{{userData.name}}</h3>
       <div class="spacer" style="width: 268px; height: 21px;"></div>
       <ion-list id="menu-list1">
-        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item1" ui-sref="menu.myProfile" menu-close="" active-page-highlight="">
-          <i class="icon ion-android-person"></i>My Profile</ion-item>
+        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item1" ui-sref="menu.general" menu-close="" active-page-highlight="">
+          <i class="icon ion-home"></i>General</ion-item>
         <ion-item class="item-icon-left  side-menu-item" id="menu-list-item2" ui-sref="menu.todos" menu-close="" active-page-highlight="">
           <i class="icon ion-ios-list-outline"></i>Todos</ion-item>
         <ion-item class="item-icon-left  side-menu-item" id="menu-list-item6" ui-sref="menu.contacts" menu-close="" active-page-highlight="">
           <i class="icon ion-android-contacts"></i>Contacts</ion-item>
-        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item5" ui-sref="menu.picture" menu-close="" active-page-highlight="">
-          <i class="icon ion-images"></i>Test Take Picture</ion-item>
-        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item3" ui-sref="menu.chat" menu-close="" active-page-highlight="">
-          <i class="icon ion-chatboxes"></i>Chat</ion-item>
+        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item3" ui-sref="menu.allQuestions" menu-close="" active-page-highlight="">
+          <i class="icon ion-chatboxes"></i>Questions</ion-item>
+        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item9" active-page-highlight="">
+          <i class="icon ion-document-text"></i>Assignment Documents</ion-item>
+        <ion-item class="item-icon-left  side-menu-item" id="menu-list-item10" active-page-highlight="">
+          <i class="icon ion-ios-world-outline"></i>Fellow Expats</ion-item>
       </ion-list>
       <button id="menu-button5" ng-click="logout()" class="button button-energized  button-block icon-left ion-log-out">Logout</button>
     </ion-content>

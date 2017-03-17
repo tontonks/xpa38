@@ -1,0 +1,37 @@
+<ion-view title="Details" cache-view="false">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="editTodo()">Edit</button>
+  </ion-nav-buttons>
+  <ion-content padding="false" scroll="false" class="has-header">
+    <ion-scroll style="height: calc(100% - 57px); overflow: hidden; padding: 10px;">
+      <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+      <h3 style="color:#000000;">{{currentTodo.name}}</h3>
+      <div class="list">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Status</span>
+          <input type="text" disabled="" ng-model="currentTodo.status">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Private</span>
+          <input type="text" disabled="" ng-model="currentTodo.privacy">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Description</span>
+          <!--<input type="text" disabled ng-model="currentTodo.description">-->
+          <textarea disabled="" ng-model="currentTodo.description"></textarea>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Due date (dd-mm-yyyy)</span>
+          <input type="text" disabled="" ng-model="dueDate">
+        </label>
+      </div>
+      <div>&nbsp;</div>
+      <div class="item item-divider">Contacts</div>
+      <a class="item" ng-repeat="contact in todoContacts" ng-click="showContact(contact)">
+        <i class="icon ion-android-contact"></i>
+        {{contact.val().name}}
+      </a>
+    </ion-scroll>
+    <button id="menu-button5" ng-click="takePicture()" class="button button-energized button-block ion-aperture">Attach Picture</button>
+  </ion-content>
+</ion-view>

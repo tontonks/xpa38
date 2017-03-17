@@ -1,0 +1,39 @@
+<ion-view ng-attr-title="{{title}}">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="save()" ng-if="isNew">Save</button>
+    <button class="button" ng-click="update()" ng-hide="isNew">Update</button>
+  </ion-nav-buttons>
+  <ion-content padding="true" class="has-header">
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Name</span>
+        <input type="text" ng-model="todo.name">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Status</span>
+        <input type="text" ng-model="todo.status">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Private</span>
+        <input type="text" ng-model="todo.privacy">
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Description</span>
+        <textarea ng-model="todo.description"></textarea>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Due date (dd-mm-yyyy)</span>
+        <textarea ng-model="dueDate"></textarea>
+      </label>
+    </div>
+    <div>&nbsp;</div>
+    <div class="item item-divider">Contacts
+      <i style="float: right;" class="icon ion-plus-round" ng-click="addContact(contact)"></i>
+    </div>
+    <a class="item" ng-repeat="contact in editContacts">
+      <i class="icon ion-android-contact"></i>
+      <span>{{contact.val().name}}</span>
+      <i style="float: right;" class="icon ion-close" ng-click="removeContact(contact)"></i>
+    </a>
+  </ion-content>
+</ion-view>

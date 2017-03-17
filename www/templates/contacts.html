@@ -2,18 +2,22 @@
   <ion-content padding="true" class="has-header">
     <ion-list>
       <ion-item ng-repeat="contact in contacts" class="item-icon-left" ng-click="viewContactDetails(contact)">
-        <i class="icon ion-android-checkbox-outline"></i>{{contact.val().name}}
-        <ion-option-button class="button-assertive">Delete</ion-option-button>
-        <ion-option-button class="button-balanced">Done !</ion-option-button>
+        <i class="icon ion-android-contact"></i>
+        <div class="contact-container">
+          <div class="contact-name">{{contact.val().name}}</div>
+          <div class="contact-type">{{contact.val().type}}</div>
+        </div>
+        <!--<ion-option-button class="button-assertive">Delete</ion-option-button>
+        <ion-option-button class="button-balanced">Done !</ion-option-button>-->
       </ion-item>
     </ion-list>
   </ion-content>
-  <ion-footer-bar align-title="left" class="bar-assertive">
-    <div class="buttons">
-      <button class="button">Status : Pending</button>
-    </div>
-    <div class="buttons" ng-click="doSomething()">
-      <button class="button">Contact : HR Admin</button>
-    </div>
-  </ion-footer-bar>
+  <!--<ion-footer-bar align-title="left" class="bar-assertive">
+      <div class="buttons">
+        <button class="button">Status : Pending</button>
+      </div>
+      <div class="buttons" ng-click="doSomething()">
+        <button class="button">Contact : HR Admin</button>
+      </div>
+    </ion-footer-bar>-->
 </ion-view>

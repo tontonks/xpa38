@@ -1,0 +1,19 @@
+<ion-view title="All Questions" cache-view="false">
+  <ion-content padding="false" scroll="false" class="has-header">
+    <ion-scroll class="top-container">
+      <ion-list>
+        <ion-item class="item-icon-right" ng-repeat="question in questions" ng-class="{ 'question-opened': question.val().status!='Done', 'question-closed': question.val().status=='Done' }" ng-click="viewMessages(question.key)">
+          <div>
+            <div>{{question.val().title}}</div>
+            <div>{{question.val().contactName}}</div>
+          </div>
+          <i class="icon ion-ios-help-outline" ng-if="question.val().status!='Done'" style="color: gray"></i>
+          <i class="icon ion-checkmark" ng-if="question.val().status=='Done'"></i>
+          <ion-option-button ng-if="question.val().status=='Pending'" class="button-balanced" ng-click="closeQuestion(question)">Got it !</ion-option-button>
+          <ion-option-button ng-if="question.val().status=='Done'" class="button-positive" ng-click="reopenQuestion(question)">Re-open</ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+    <button ng-click="addQuestion()" class="button button-energized  button-block icon ion-android-add-circle"> Ask Question</button>
+  </ion-content>
+</ion-view>

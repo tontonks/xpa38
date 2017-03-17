@@ -1,0 +1,42 @@
+<ion-view title="General" id="page1">
+  <ion-content padding="true" class="has-header">
+    <div class="item item-body" id="myProfile-list-item-container1">
+      <div id="myProfile-markdown2" class="show-list-numbers-and-dots">
+        <p style="margin-top:0px;color:#000000;">Assignment start
+          <!--<strong>{{currUser.val().assignmentStartDate}}</strong>-->
+          <strong class="general-right-item">{{startDate}}</strong>
+        </p>
+        <hr>
+      </div>
+      <div id="myProfile-markdown3" class="show-list-numbers-and-dots">
+        <p style="margin-top:0px;color:#000000;">Projected assignment end
+          <!--<strong>{{currUser.val().projectedEndDate}}</strong>-->
+          <strong class="general-right-item">{{endDate}}</strong>
+        </p>
+      </div>
+      <hr>
+      <div id="myProfile-markdown4" class="show-list-numbers-and-dots">
+        <p style="margin-top:0px;color:#000000;"> Number of items to do
+          <strong class="general-right-item">{{td}}</strong>
+        </p>
+      </div>
+      <hr>
+      <div id="myProfile-markdown5" class="show-list-numbers-and-dots">
+        <p style="margin-top:0px;color:#000000;">Number of active questions
+          <strong class="general-right-item">{{quest.length}}</strong>
+        </p>
+      </div>
+      <hr>
+    </div>
+    <div class="list">
+      <div class="item item-divider">
+        Recent activity
+      </div>
+
+      <a class="item" href="#" ng-repeat="act in acts">
+        <p class="act-details">{{act.text}}</p>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>
