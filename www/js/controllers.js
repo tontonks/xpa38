@@ -456,24 +456,8 @@ function ($scope, $state, $stateParams, $firebaseArray, $ionicUser, $ionicLoadin
 function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awlert, $state) {
     $ionicLoading.show({ template: 'Loading...' });
     
-    //var ref = firebase.database().ref().child('contacts');
     
-    $scope.contacts = []; //$firebaseArray(ref);
-    
-    
-    //ref.once('value', function(snapshot) {
-    //  $ionicLoading.hide();
-    //});
-    /*debugger;
-    var ref = firebase.database().ref('users/' + $ionicUser.id + '/contacts');
-    ref.on('value', function(snapshot) {
-        debugger;
-      //updateStarCount(postElement, snapshot.val());
-    });
-    
-    
-    return;
-    */
+    $scope.contacts = []; 
     
     
     firebase.database().ref('users/' + $ionicUser.id + '/contacts').orderByChild('name').on('value', function(snapshot){
@@ -491,27 +475,6 @@ function ($scope, $stateParams, $firebaseArray, $ionicUser, $ionicLoading, awler
         
     });
     
-    
-    
-      /*.then(function(snapshot) {
-         debugger;
-        
-        
-        
-        snapshot.val()[$ionicUser.id].contacts.forEach(function(childSnapshot) {
-            //debugger;
-          // key will be "ada" the first time and "alan" the second time
-          var key = childSnapshot.key;
-          // childData will be the actual contents of the child
-          var childData = childSnapshot.val();
-          
-          //child.id = key;
-          $scope.contacts.push(childData);
-          console.log(childData);
-      });
-    });*/
-    
-    
     $scope.viewContactDetails = function(contact){
        
         $state.go('menu.contactDetails', { id : contact.key});
@@ -528,7 +491,7 @@ function ($scope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicUser) 
     var addMessageRef;
     
     init();
-    //$scope.questions = [];
+
     $scope.model = {
         title:'',
         messageText : ''
@@ -540,32 +503,12 @@ function ($scope, $stateParams, $state, $ionicLoading, $ionicPopup, $ionicUser) 
         
       addQuestionsRef = firebase.database().ref().child('questions');
       addMessageRef = firebase.database().ref().child('messages');
-      /*
-      questionMessageRef =  firebase.database().ref('users/' + $ionicUser.id + '/questions');
-            
-        questionMessageRef.on('value', function(snapshot){
-            questionsSnapshot =   snapshot; 
-            var questionRef = firebase.database().ref('questions').orderByChild('contact').equalTo($stateParams.contactId);
-            
-            $scope.questions = []; 
-            snapshot.forEach(function(snapShotItem) {
-            
-              firebase.database().ref('questions/' + snapShotItem.key).on('value', function(childSnapShot){
-                  $scope.questions.push(childSnapShot);
-                  console.log(childSnapShot.val());
-                  debugger;
-                  
-              });
-                //
-            
-            });
-        });
-        */
+      
       
          questionMessageRef = firebase.database().ref('questions/').orderByChild('contact').equalTo($stateParams.contactId);
         
         questionMessageRef.on('value', function(snapshot){
-            //debugger;
+            
             $scope.questions = [];
             snapshot.forEach(function(snapShotItem) {
           
